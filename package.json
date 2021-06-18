@@ -1,0 +1,23 @@
+{
+  "name": "broversion",
+  "version": "1.0.0",
+  "description": "List of current browser versions from Caniuse api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geminic/broversion.git"
+  },
+  "keywords": [],
+  "author": "Sergey Kozlov <geminic@yandex.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geminic/broversion/issues"
+  },
+  "homepage": "https://github.com/geminic/broversion#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
