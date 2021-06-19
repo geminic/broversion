@@ -51,8 +51,10 @@ app.get('/update', (req, res) => {
     /**
      * Update caniuse-lite database
      */
-    exec('npx browserslist@latest --update-db', { env: { 'NO_COLOR': 1 } }, (error, stdout) => {
-        if (stdout) {
+    exec('npx browserslist@latest --update-db', (error, stdout) => {
+        if (error) {
+            res.send(error);
+        } else if (stdout) {
             res.send(stdout);
         } else {
             res.send('Error');
