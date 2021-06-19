@@ -2,9 +2,9 @@
   "name": "broversion",
   "version": "1.0.0",
   "description": "List of current browser versions from Caniuse api",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index"
+    "start": "node app"
   },
   "repository": {
     "type": "git",
