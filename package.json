@@ -19,8 +19,7 @@
   "homepage": "https://github.com/geminic/broversion#readme",
   "dependencies": {
     "browserslist": "^4.16.6",
-    "express": "^4.17.1",
-    "express-sslify": "^1.2.0"
+    "express": "^4.17.1"
   },
   "browserslist": [
     "last 1 version"
