@@ -153,7 +153,7 @@ p {
     position: relative;
 }
 
-.load-container._is-loaded .lds-spinner {
+.load-container ._is-loaded ~ .lds-spinner {
     display: none;
 }
 
@@ -168,7 +168,7 @@ p {
     width: 80px;
     height: 80px;
     left: 0;
-    top: 10px;
+    top: 30px;
 }
 
 .lds-spinner div {

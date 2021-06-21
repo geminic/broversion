@@ -40,25 +40,22 @@ function parseResult(data) {
     /**
      * Normalize names and separate mobile browsers from desktop
      */
+    const log = getUpdateLog();
     const formatted = {
         'success': true,
-        'lastUpdate': getUpdateLog().lastUpdate,
-        'dbVersion': '1.0.123456657',
-        'dbTime': 1624281052925,
+        'lastUpdate': formatTime(log.lastUpdate),
+        'dbVersion': `${log.dbVersion} (${formatTime(log.dbTime)})`,
         'desktop': [
             ['Chrome', list.chrome],
             ['Safari', list.safari],
             ['Firefox', list.firefox],
             ['Opera', list.opera],
-            ['Edge', list.edge],
-            // ['IE', list.ie],
+            ['Edge', list.edge]
         ],
         'mobile': [
             ['Chrome Mobile', list.and_chr],
             ['iOS Safari', list.ios_saf],
-            ['Samsung Internet', list.samsung],
-            // ['Firefox Mobile', list.and_ff],
-            // ['Android (WebView)', list.android]
+            ['Samsung Internet', list.samsung]
         ]
     }
 
@@ -95,5 +92,20 @@ function printResult(status, data, res) {
 
     res.send(data);
 }
+
+
+/**
+ * Format time
+ */
+function formatTime(timestamp) {
+    const date = new Date(timestamp);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = date.toLocaleString('en', { month: 'short' });
+    const year = date.getFullYear();
+
+    return `${day} ${month} ${year}`;
+}
+
 
 module.exports = router;

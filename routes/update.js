@@ -29,7 +29,9 @@ router.get('/', (req, res) => {
  */
 function writeLog(data) {
     const obj = {
-        lastUpdate: new Date().getTime()
+        lastUpdate: new Date().getTime(),
+        dbVersion: '1.0.123456657',
+        dbTime: 1624285052925
     }
 
     fs.writeFile(
