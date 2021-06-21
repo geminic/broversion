@@ -29,11 +29,11 @@ router.get('/', (req, res) => {
  */
 function writeLog(data) {
     const obj = {
-        date: new Date().getTime()
+        lastUpdate: new Date().getTime()
     }
 
     fs.writeFile(
-        path.resolve(__dirname, '../update_log.json'),
+        path.resolve(__dirname, '../bro_update_log.json'),
         JSON.stringify(obj),
         () => {
             console.log('JSON data is saved.')
