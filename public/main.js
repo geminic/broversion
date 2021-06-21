@@ -37,7 +37,7 @@ function getHtml(data) {
 
     let html = `
         <p>
-            Last update: ${data.lastUpdate}<br/>
+            Last database sync: ${data.lastUpdate}<br/>
             Database version: ${data.dbVersion}
         </p>
 
