@@ -4,7 +4,7 @@
   "description": "List of current browser versions from Caniuse api",
   "main": "app.js",
   "scripts": {
-    "start": "node app"
+    "start": "cross-env NO_COLOR=1 node app"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/geminic/broversion#readme",
   "dependencies": {
     "browserslist": "^4.16.6",
+    "cross-env": "^7.0.3",
     "express": "^4.17.1"
   },
   "browserslist": [
