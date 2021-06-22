@@ -1,0 +1,13 @@
+name: "Update database"
+on:
+  schedule:
+  - cron: "0 2 * * *"
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: fjogeleit/http-request-action@master
+      with:
+        url: 'https://broversion.herokuapp.com/update'
+        method: 'GET'
+        timeout: 120000
