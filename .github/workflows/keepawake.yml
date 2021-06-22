@@ -1,0 +1,14 @@
+name: "Keep Heroku server awake"
+on:
+  schedule:
+  - cron: "*/10 * * * *"
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      uses: fjogeleit/http-request-action@master
+      with:
+        url: 'https://broversion.herokuapp.com/'
+        method: 'GET'
+        timeout: 60000
