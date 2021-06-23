@@ -21,8 +21,5 @@
     "browserslist": "^4.16.6",
     "cross-env": "^7.0.3",
     "express": "^4.17.1"
-  },
-  "browserslist": [
-    "last 1 version"
-  ]
+  }
 }

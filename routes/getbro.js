@@ -3,39 +3,44 @@
  */
 const express = require('express');
 const router = express.Router();
-const { exec } = require('child_process');
+const browserslist = require('browserslist');
 const path = require('path');
 const fs = require('fs');
 
+
 router.get('/', (req, res) => {
-    /**
-     * Get browsers versions from the current database
-     */
-    exec('npx browserslist', (error, stdout) => {
-        if (stdout) {
-            const data = parseResult(stdout);
-            printResult('success', data, res);
-        } else {
-            printResult('error', false, res);
-        }
-    });
-});
+    const yyyy = new Date().getFullYear() - 1;
+    const mm = String(new Date().getMonth() + 1).padStart(2, '0');
 
-
-/**
- * Convert data to JSON
- */
-function parseResult(data) {
     /**
-     * Browserslist's string to array, then to object
+     * Get all current versions and since 1 year ago
      */
-    const arr = data.split(/\r?\n/);
+    const arr = browserslist(`last 1 version, since ${yyyy}-${mm}`);
     const list = {};
+    const grouped = {}
 
+    /**
+     * Group versions by browsers
+     */
     arr.forEach(x => {
-        const a = x.split(' ');
-        list[a[0]] = a[1];
+        const row = x.split(' ');
+        const name = row[0];
+
+        if (!grouped[name]) {
+            grouped[name] = [];
+        }
+
+        grouped[name].push(row[1]);
+
+        /**
+         * Filter the last and 1-year-old versions
+         */
+        list[name] = [
+            grouped[name][0],
+            grouped[name][grouped[name].length - 1]
+        ];
     });
+
 
     /**
      * Normalize names and separate mobile browsers from desktop
@@ -59,8 +64,8 @@ function parseResult(data) {
         ]
     }
 
-    return JSON.stringify(formatted);
-}
+    res.send(JSON.stringify(formatted));
+});
 
 
 /**
@@ -78,19 +83,6 @@ function getUpdateLog() {
     }
 
     return log;
-}
-
-
-/**
- * Send response
- */
-function printResult(status, data, res) {
-    if (status === 'error') {
-        res.send(JSON.stringify({ success: false }));
-        return;
-    }
-
-    res.send(data);
 }
 
 

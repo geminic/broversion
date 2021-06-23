@@ -29,7 +29,19 @@ function getHtml(data) {
         let list = '';
 
         arr.forEach(bro => {
-            list += `<li>${bro[0]}: ${bro[1]}</li>`;
+            list += `<li>${bro[0]}: ${bro[1][0]} (${bro[1][1]})</li>`;
+        });
+
+        return list;
+    }
+
+    function getRow(arr) {
+        let list = '';
+
+        arr.forEach(bro => {
+            list += `<tr>
+                        <td>${bro[0]}</td> <td>${bro[1][0]}</td> <td>${bro[1][1]}</td>
+                    </tr>`;
         });
 
         return list;
@@ -44,16 +56,28 @@ function getHtml(data) {
         <div class="lists">
             <div>
                 <h2 class="h2">Desktop</h2>
-                <ul class="list">
-                    ${getList(data.desktop)}
-                </ul>
+
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>Today</th>
+                        <th>1 year ago</th>
+                    </tr>
+                    ${getRow(data.desktop)}
+                </table>
             </div>
 
             <div>
                 <h2 class="h2">Mobile</h2>
-                <ul class="list">
-                    ${getList(data.mobile)}
-                </ul>
+
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>Today</th>
+                        <th>1 year ago</th>
+                    </tr>
+                    ${getRow(data.mobile)}
+                </table>
             </div>
         </div>
         `
