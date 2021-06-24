@@ -9,13 +9,15 @@ const fs = require('fs');
 
 
 router.get('/', (req, res) => {
-    const yyyy = new Date().getFullYear() - 1;
-    const mm = String(new Date().getMonth() + 1).padStart(2, '0');
+    const date = new Date();
+    const yyyy = date.getFullYear() - 1;
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
 
     /**
      * Get all current versions and since 1 year ago
      */
-    const arr = browserslist(`last 1 version, since ${yyyy}-${mm}`);
+    const arr = browserslist(`last 1 version, since ${yyyy}-${mm}-${dd}`);
     const list = {};
     const grouped = {}
 
