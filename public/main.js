@@ -1,18 +1,56 @@
 const broContainer = document.querySelector('.js-render-bro');
+let updateAttempts = 0;
 
-axios.get('/getbro')
-    .then((response) => {
-        if (response.data && response.data.success) {
-            renderSuccess(response.data);
-        } else {
+function getInfo() {
+    broContainer.innerHTML = 'Loading ...';
+
+    axios.get('/getbro')
+        .then((response) => {
+            if (response.data && response.data.success) {
+                const yesterday = new Date().getTime() - 60000 * 60 * 24;
+                const lastUpdate = new Date(response.data.lastUpdate).getTime();
+
+                if (lastUpdate < yesterday) {
+                     // The database hasn't been updated recently, let's do it now
+                    if (updateAttempts < 1) {
+                        updateDatabase();
+                    } else {
+                        // Have already tried to update, but smth went wrong
+                        renderError();
+                    }
+                } else {
+                    renderSuccess(response.data);
+                }
+            } else {
+                renderError();
+            }
+        })
+        .catch(() => {
             renderError();
-        }
-    })
-    .catch(() => {
-        renderError();
-    });
+        });
+}
 
+getInfo();
 
+function updateDatabase() {
+    broContainer.innerHTML = 'Updating the database ...';
+
+    axios.get('/update')
+        .then((response) => {
+            // To avoid recursion, count the attempts
+            updateAttempts++;
+
+            if (response && response !== 'Error') {
+                getInfo();
+            } else {
+                renderError();
+            }
+        })
+        .catch(() => {
+            updateAttempts++;
+            renderError();
+        });
+}
 
 function renderSuccess(data) {
     broContainer.innerHTML = getHtml(data);
@@ -25,16 +63,6 @@ function renderError() {
 }
 
 function getHtml(data) {
-    function getList(arr) {
-        let list = '';
-
-        arr.forEach(bro => {
-            list += `<li>${bro[0]}: ${bro[1][0]} (${bro[1][1]})</li>`;
-        });
-
-        return list;
-    }
-
     function getRow(arr) {
         let list = '';
 
