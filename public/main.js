@@ -7,7 +7,8 @@ function getInfo() {
     axios.get('/getbro')
         .then((response) => {
             if (response.data && response.data.success) {
-                const yesterday = new Date().getTime() - 60000 * 60 * 24;
+                const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+                const yesterday = new Date().getTime() - 60000 * 60 * 24 + timezoneOffset;
                 const lastUpdate = new Date(response.data.lastUpdate).getTime();
 
                 if (lastUpdate < yesterday) {
