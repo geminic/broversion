@@ -51,7 +51,7 @@ router.get('/', (req, res) => {
     const formatted = {
         'success': true,
         'lastUpdate': formatTime(log.lastUpdate),
-        'dbVersion': `${log.dbVersion} (${formatTime(log.dbTime)})`,
+        'dbVersion': log.dbVersion,
         'desktop': [
             ['Chrome', list.chrome],
             ['Safari', list.safari],
