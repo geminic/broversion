@@ -15,8 +15,8 @@ router.get('/', (req, res) => {
         if (error) {
             res.send(error);
         } else if (stdout) {
-            exec('npm cache clean --force', (error, stdout) => {
-                console.log(error, stdout);
+            exec('npx clear-npx-cache', (error) => {
+                console.log(error);
             });
 
             writeLog(stdout);
