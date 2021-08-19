@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
     /**
      * Get all current versions and since 1 year ago
      */
+    // browserslist.clearCaches();
     const arr = browserslist(`last 1 version, since ${yyyy}-${mm}-${dd}`);
     const list = {};
     const grouped = {}
