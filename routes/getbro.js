@@ -3,70 +3,85 @@
  */
 const express = require('express');
 const router = express.Router();
-const browserslist = require('browserslist');
 const path = require('path');
+const { exec } = require('child_process');
 const fs = require('fs');
 
 
 router.get('/', (req, res) => {
-    const date = new Date();
-    const yyyy = date.getFullYear() - 1;
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-
     /**
      * Get all current versions and since 1 year ago
      */
-    const arr = browserslist(`last 1 version, since ${yyyy}-${mm}-${dd}`);
-    const list = {};
-    const grouped = {}
-
-    /**
-     * Group versions by browsers
-     */
-    arr.forEach(x => {
-        const row = x.split(' ');
-        const name = row[0];
-
-        if (!grouped[name]) {
-            grouped[name] = [];
+    exec(`npx browserslist`, (error, stdout) => {
+        if (error) {
+            res.send(error);
+        } else if (stdout) {
+            arr = stdout.split('\n');
+            parseBrowsers(arr);
+        } else {
+            res.send('Error');
         }
-
-        grouped[name].push(row[1]);
-
-        /**
-         * Filter the last and 1-year-old versions
-         */
-        list[name] = [
-            grouped[name][0],
-            grouped[name][grouped[name].length - 1]
-        ];
     });
 
 
     /**
-     * Normalize names and separate mobile browsers from desktop
+     * Format results
      */
-    const log = getUpdateLog();
-    const formatted = {
-        'success': true,
-        'lastUpdate': formatTime(log.lastUpdate),
-        'dbVersion': log.dbVersion,
-        'desktop': [
-            ['Chrome', list.chrome],
-            ['Safari', list.safari],
-            ['Firefox', list.firefox],
-            ['Opera', list.opera],
-            ['Edge', list.edge]
-        ],
-        'mobile': [
-            ['Chrome Mobile', list.and_chr],
-            ['iOS Safari', list.ios_saf],
-            ['Samsung Internet', list.samsung]
-        ]
-    }
+    function parseBrowsers(arr) {
+        const list = {};
+        const grouped = {}
 
-    res.send(JSON.stringify(formatted));
+        /**
+         * Group versions by browsers
+         */
+        arr.forEach(x => {
+            const row = x.split(' ');
+            const name = row[0];
+
+            if (!grouped[name]) {
+                grouped[name] = [];
+            }
+
+            grouped[name].push(row[1]);
+
+            /**
+             * Filter the last and 1-year-old versions
+             */
+            list[name] = [
+                grouped[name][0],
+                grouped[name][grouped[name].length - 1]
+            ];
+        });
+
+
+        /**
+         * Normalize names and separate mobile browsers from desktop
+         */
+        const log = getUpdateLog();
+        const formatted = {
+            'success': true,
+            'lastUpdate': formatTime(log.lastUpdate),
+            'dbVersion': log.dbVersion,
+            'desktop': [
+                ['Chrome', list.chrome],
+                ['Safari', list.safari],
+                ['Firefox', list.firefox],
+                ['Opera', list.opera],
+                ['Edge', list.edge]
+            ],
+            'mobile': [
+                ['Chrome Mobile', list.and_chr],
+                ['iOS Safari', list.ios_saf],
+                ['Samsung Internet', list.samsung]
+            ]
+        };
+
+
+        /**
+         * Send
+         */
+        res.send(JSON.stringify(formatted));
+    }
 });
 
 

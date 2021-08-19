@@ -15,10 +15,6 @@ router.get('/', (req, res) => {
         if (error) {
             res.send(error);
         } else if (stdout) {
-            exec('npx clear-npx-cache', (error) => {
-                console.log(error);
-            });
-
             writeLog(stdout);
             res.send(stdout);
         } else {
