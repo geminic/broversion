@@ -6,15 +6,18 @@ const router = express.Router();
 const path = require('path');
 const { exec } = require('child_process');
 const fs = require('fs');
+const browserslist = require('browserslist');
 
 router.get('/', (req, res) => {
     /**
      * Update the caniuse-lite database
      */
     exec('npx browserslist@latest --update-db', (error, stdout) => {
+
         if (error) {
             res.send(error);
         } else if (stdout) {
+            browserslist.clearCaches();
             writeLog(stdout);
             res.send(stdout);
         } else {
