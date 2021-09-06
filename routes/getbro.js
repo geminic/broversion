@@ -55,6 +55,15 @@ router.get('/', (req, res) => {
 
 
         /**
+         * Fix Chrome mobile 1 year version (there are no old versions)
+         * Substitute the version of desktop Chrome
+         */
+        if (list['and_chr'] && list['and_chr'][0] === list['and_chr'][1] && list['chrome']) {
+            list['and_chr'][1] = list['chrome'][1];
+        }
+
+
+        /**
          * Normalize names and separate mobile browsers from desktop
          */
         const log = getUpdateLog();
