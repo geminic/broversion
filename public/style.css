@@ -285,5 +285,5 @@ p {
 }
 
 small {
-    color: var(--color-grey);
+    font-size: 11px;
 }
