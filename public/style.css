@@ -283,3 +283,7 @@ p {
 .table td:first-child {
     width: 50%;
 }
+
+small {
+    color: var(--color-grey);
+}

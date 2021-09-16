@@ -90,7 +90,7 @@ function getHtml(data) {
                     <tr>
                         <th></th>
                         <th>Today</th>
-                        <th>1 year ago</th>
+                        <th>1 year ago *</th>
                     </tr>
                     ${getRow(data.desktop)}
                 </table>
@@ -109,6 +109,8 @@ function getHtml(data) {
                 </table>
             </div>
         </div>
+
+        <small>* If&nbsp;the old version matches the current one, it&nbsp;may sometimes be&nbsp;incorrect, because the information about it&nbsp;is&nbsp;no&nbsp;longer updated</small>
         `
 
     return html;
