@@ -81,7 +81,8 @@ router.get('/', (req, res) => {
             'mobile': [
                 ['Chrome Mobile', list.and_chr],
                 ['iOS Safari', list.ios_saf],
-                ['Samsung Internet', list.samsung]
+                ['Samsung Internet', list.samsung],
+                ['Android WebView', list.android]
             ]
         };
 
