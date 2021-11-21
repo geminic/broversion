@@ -26,6 +26,9 @@ router.get('/', (req, res) => {
 
 /**
  * Write the result to the json file if the update was successful
+ * (Doesn't really make sense because Heroku in the free plan
+ * disables virtual machines after 30 mins of inactivity
+ * and resets all files to the last commit)
  */
 function writeLog(data) {
     /**
