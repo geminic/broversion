@@ -71,7 +71,7 @@ function getHtml(data) {
             list += `<tr>
                         <td>${bro[0]}</td>
                         <td>${bro[1][0]}</td>
-                        <td>${bro[1][1]} ${bro[1][0] === bro[1][1] ? '<sup>*</sup>' : ''}</td>
+                        <td>${bro[1][1] ? bro[1][1] : '<span>no data</span>'}</td>
                     </tr>`;
         });
 
@@ -92,7 +92,7 @@ function getHtml(data) {
                     <tr>
                         <th></th>
                         <th>Today</th>
-                        <th>1 year ago</th>
+                        <th>1&nbsp;year&nbsp;ago</th>
                     </tr>
                     ${getRow(data.desktop)}
                 </table>
@@ -111,8 +111,6 @@ function getHtml(data) {
                 </table>
             </div>
         </div>
-
-        <small>* The old version may be&nbsp;incorrect. Check in&nbsp;Wikipedia or&nbsp;on&nbsp;the official website to&nbsp;be&nbsp;sure</small>
         `
 
     return html;

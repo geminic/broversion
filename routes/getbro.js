@@ -49,8 +49,11 @@ router.get('/', (req, res) => {
              */
             list[name] = [
                 grouped[name][0],
-                grouped[name][grouped[name].length - 1]
             ];
+
+            if (grouped[name].length > 1) {
+                list[name].push(grouped[name][grouped[name].length - 1]);
+            }
         });
 
 
@@ -58,7 +61,7 @@ router.get('/', (req, res) => {
          * Fix Chrome mobile 1 year version (there are no old versions)
          * Substitute the version of desktop Chrome
          */
-        if (list['and_chr'] && list['and_chr'][0] === list['and_chr'][1] && list['chrome']) {
+        if (list['and_chr'] && list['and_chr'].length === 1 && list['chrome']) {
             list['and_chr'][1] = list['chrome'][1];
         }
 
