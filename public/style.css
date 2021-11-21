@@ -82,7 +82,44 @@ a:hover {
     color: var(--color-grey);
     height: 80px;
     box-sizing: border-box;
-    padding: 30px 0 0 0;
+    padding: 20px 0 0 0;
+}
+
+.footer a {
+    display: inline-block;
+    vertical-align: top;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    margin-right: 6px;
+    transition: all 0.2s ease;
+    background: #fff;
+}
+
+a.github svg {
+    display: block;
+    width: 30px;
+    height: 30px;
+    fill: #000;
+    transition: inherit;
+}
+
+a.github:hover svg {
+    fill: var(--color-grey);
+}
+
+a.email {
+    background: #000;
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    line-height: 26px;
+}
+
+a.email:hover {
+    background: var(--color-grey);
 }
 
 .lists {
